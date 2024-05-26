@@ -1,6 +1,6 @@
 package org.acme.presentation;
 
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -25,7 +25,7 @@ public class UserResource {
     }
 
     @GET
-    @PermitAll
+    @RolesAllowed({"admin", "user"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
         List<UserResponse> listOfUsers = userService.getUsers();
@@ -34,6 +34,7 @@ public class UserResource {
 
     @GET
     @Path("{id}")
+    @RolesAllowed({"admin", "user"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@PathParam("id") Long id) {
         UserResponse user = userService.getUserById(id);
@@ -41,6 +42,7 @@ public class UserResource {
     }
 
     @POST
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(UserRequest userRequest) {
@@ -50,6 +52,7 @@ public class UserResource {
 
     @PUT
     @Path("{id}")
+    @RolesAllowed("admin")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("id") Long id, UserRequest userRequest) {
@@ -58,6 +61,7 @@ public class UserResource {
     }
 
     @DELETE
+    @RolesAllowed("admin")
     @Path("{id}")
     public Response deleteUser(@PathParam("id") Long id) {
         userService.deleteUser(id);
