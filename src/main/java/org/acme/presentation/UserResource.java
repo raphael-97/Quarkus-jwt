@@ -3,6 +3,7 @@ package org.acme.presentation;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.NoArgsConstructor;
 import org.acme.business.UserService;
@@ -25,6 +26,7 @@ public class UserResource {
 
     @GET
     @PermitAll
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getUsers() {
         List<UserResponse> listOfUsers = userService.getUsers();
         return Response.ok(listOfUsers).build();
@@ -32,12 +34,15 @@ public class UserResource {
 
     @GET
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@PathParam("id") Long id) {
         UserResponse user = userService.getUserById(id);
         return Response.ok(user).build();
     }
 
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(UserRequest userRequest) {
         UserResponse user = userService.createUser(userRequest);
         return Response.created(URI.create("/users/" + user.getId())).entity(user).build();
@@ -45,6 +50,8 @@ public class UserResource {
 
     @PUT
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("id") Long id, UserRequest userRequest) {
         UserResponse user = userService.updateUser(id, userRequest);
         return Response.ok(user).build();
