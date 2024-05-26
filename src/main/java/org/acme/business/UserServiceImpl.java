@@ -13,6 +13,7 @@ import org.acme.persistance.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -66,5 +67,12 @@ public class UserServiceImpl implements UserService {
                 new NotFoundException(String.format("User with id %s not found", id)));
 
         userRepository.delete(user);
+    }
+
+    @Override
+    public Set<String> getRoles(String username) {
+        User byUsername = userRepository.findByUsername(username).orElseThrow(() ->
+                new NotFoundException(String.format("User with username \"%s\" not found", username)));
+        return byUsername.getRoles();
     }
 }
