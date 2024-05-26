@@ -1,5 +1,6 @@
 package org.acme.mapper;
 
+import org.acme.dto.RegistrationRequest;
 import org.acme.dto.UserRequest;
 import org.acme.dto.UserResponse;
 import org.acme.model.User;
@@ -14,5 +15,7 @@ public interface UserMapper {
     UserResponse userToUserResponse(User user);
 
     User UserRequestToUser(UserRequest userRequest);
+
+    User RegistrationRequestToUser(RegistrationRequest registrationRequest);
 
 }
