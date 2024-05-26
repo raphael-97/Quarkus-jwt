@@ -23,7 +23,6 @@ public class Startup {
 
     @Transactional
     public void loadUsers(@Observes StartupEvent evt) {
-        // reset and load all test users
 
         User admin = User.builder()
                 .username("admin")
@@ -38,7 +37,7 @@ public class Startup {
                 .build();
 
         User multi = User.builder()
-                .username("multi")
+                .username("both")
                 .password("password")
                 .roles(Set.of("user", "admin"))
                 .build();
