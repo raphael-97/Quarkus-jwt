@@ -43,35 +43,38 @@ Jwt token expires in 60 minutes if not changed in [application.properties](https
 
 ### How to use
 
-#### Create an account (it has user role):
+#### Create an account (it has user role)
 
-`curl -i -X 'POST' 'http://localhost:8080/api/auth/register' -H 'Content-Type: application/json' -d '{ "username": "john", "password": "secret"}'`
+```curl -i -X 'POST' 'http://localhost:8080/api/auth/register' -H 'Content-Type: application/json' -d '{ "username": "john", "password": "secret"}'```
 
-#### Login to your account:
+#### Login to your account
 
 "am9objpzZWNyZXQ=" is Base64 encoded String of username:password
 
-`curl -i -X POST 'http://localhost:8080/api/auth/login' -H 'Authorization: Basic am9objpzZWNyZXQ='`
+```curl -i -X POST 'http://localhost:8080/api/auth/login' -H 'Authorization: Basic am9objpzZWNyZXQ='```
 
-You get a bearer jwt token back.
+You get a bearer jwt token back
 
 #### Use User api endpoint with jwt token
 
-`curl -i -X GET 'http://localhost:8080/api/users' -H 'Authorization: Bearer TOKENHERE'`
+```curl -i -X GET 'http://localhost:8080/api/users' -H 'Authorization: Bearer TOKENHERE'```
 
-Keep in mind your registered user only has access to endpoints with the user role.
+Keep in mind your registered user only has access to endpoints with the user role
 
 
-#### Login to an admin account:
+#### Login to an admin account
 
-One pre-made admin account has the username: "admin" and password: "password".
+One pre-made admin account has the username: "admin" and password: "password"
+
 The Base64 encoded string is: YWRtaW46cGFzc3dvcmQ=
 
+
+
 #### Get the jwt token of admin role
-`curl -i -X POST 'http://localhost:8080/api/auth/login' -H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ='`
+```curl -i -X POST 'http://localhost:8080/api/auth/login' -H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ='```
 
 #### Create new account with the admin role and insert your jwt token
 
-`curl -i -X POST 'http://localhost:8080/api/users' -H 'Content-Type: application/json' -H 'Authorization: Bearer TOKENHERE' -d '{ "username": "Doe", "password": "secret", "roles": ["admin", "user"]}'`
+```curl -i -X POST 'http://localhost:8080/api/users' -H 'Content-Type: application/json' -H 'Authorization: Bearer TOKENHERE' -d '{ "username": "Doe", "password": "secret", "roles": ["admin", "user"]}'```
 
 
