@@ -37,8 +37,12 @@ public class AuthResource {
     @PermitAll
     @Consumes(MediaType.APPLICATION_JSON)
     public Response registerUser(RegistrationRequest registrationRequest) {
-        authService.registerUser(registrationRequest);
-        return Response.ok().build();
+        try {
+            authService.registerUser(registrationRequest);
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(400).entity("Username already in use").build();
+        }
     }
 
     @POST
