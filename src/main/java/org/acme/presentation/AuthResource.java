@@ -12,6 +12,7 @@ import org.acme.business.AuthService;
 import org.acme.business.JwtService;
 import org.acme.business.UserService;
 import org.acme.dto.RegistrationRequest;
+import org.acme.exceptions.UsernameAlreadyExistsException;
 
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class AuthResource {
             authService.registerUser(registrationRequest);
             return Response.ok().build();
         } catch (Exception e) {
-            return Response.status(400).entity("Username already in use").build();
+            throw new UsernameAlreadyExistsException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "Username already taken");
         }
     }
 
